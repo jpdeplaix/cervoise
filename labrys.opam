@@ -26,6 +26,9 @@ depends: [
   "containers-data" {>= "3.0"}
   "craml" {with-test}
 ]
+depexts: [
+  ["valgrind"] {os-distribution = "debian"}
+]
 tags: [
   "compiler"
   "System F"
