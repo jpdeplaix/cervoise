@@ -36,9 +36,9 @@ Test behaviours
   Linking Hello
   $ ./a.out
   Hello World !
-  $ $LABRYS build-program Fact
+  $ $LABRYS print-early-llvm Fact
   Linking Fact
-  $ valgrind ./a.out
+  $ ./a.out
   1
   1
   2
@@ -46,9 +46,9 @@ Test behaviours
   24
   120
   40320
-  $ $LABRYS build-program TailFact
+  $ $LABRYS print-llvm Fact
   Linking TailFact
-  $ valgrind ./a.out
+  $ ./a.out
   1
   1
   2
@@ -60,7 +60,7 @@ Test behaviours
   40320
   $ $LABRYS build-program NativeFact
   Linking NativeFact
-  $ valgrind ./a.out
+  $ ./a.out
   1
   1
   2
@@ -71,7 +71,7 @@ Test behaviours
   40320
   $ $LABRYS build-program PolyFact
   Linking PolyFact
-  $ valgrind ./a.out
+  $ ./a.out
   1
   1
   2
