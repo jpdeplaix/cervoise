@@ -50,7 +50,7 @@ let string = Llvm.const_string c
 module Generic (I : sig val m : t end) = struct
   open I
 
-  let init_name name = fmt "__%s_init" (Module.to_string name)
+  let init_name name = fmt "gne%s_init" (Module.to_string name)
 
   let frameaddress =
     let ty = Llvm.function_type Type.star [|Type.i32|] in
@@ -239,7 +239,7 @@ module Make (I : I) = struct
     let (values, env) = fold_rt_env env builder in
     let rt_env_size = List.length values in
     let rt_env_size = succ rt_env_size in
-    let (f, builder') = Llvm.define_function `Private c "__lambda" (Type.lambda ~rt_env_size) m in
+    let (f, builder') = Llvm.define_function `Private c "blilambda" (Type.lambda ~rt_env_size) m in
     Llvm.set_linkage Llvm.Linkage.Private f;
     let f = Llvm.build_bitcast f Type.star "" builder in
     let closure = malloc_and_init (f :: values) builder in
@@ -538,7 +538,7 @@ module Make (I : I) = struct
           Llvm.set_global_constant true v;
           builder
       | OptimizedTree.Function (name, (name', t), linkage) ->
-          let (f, builder') = Llvm.define_function `Private c (".." ^ LIdent.to_string name) (Type.lambda ~rt_env_size:0) m in
+          let (f, builder') = Llvm.define_function `Private c ("blah" ^ LIdent.to_string name) (Type.lambda ~rt_env_size:0) m in
           let f = define_global ~name ~linkage (Llvm.const_array Type.star [|Llvm.const_bitcast f Type.star|]) in
           let last_bind = (name, Some f) in
           abs ~last_bind ~name:name' t env builder';
